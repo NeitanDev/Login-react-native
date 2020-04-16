@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, TextInput } from 'react-native';
 
 export default function Login() {
     return (
@@ -15,5 +15,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        // backgroundColor: '#333'
     },
 });
