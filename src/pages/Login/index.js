@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, AsyncStorage, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,20 @@ export default function Login() {
     const [senha, setSenha] = useState('');
 
     const navigation = useNavigation();
+
+    async function getUserId() {
+        try {
+            const value = await AsyncStorage.getItem('@MySuperStore:key');
+            if (value !== null) {
+                // We have data!!
+                console.log(value);
+            } else if (value == null) {
+                console.log('valor retornou nulo');
+            }
+        } catch (error) {
+            console.log('Deu bosta na hora de salvar, aconteceu isso: ' + error);
+        }
+    }
 
     async function setUserId(id) {
         try {
@@ -21,9 +35,13 @@ export default function Login() {
         // aqui vai seu codigo de verificação da api
         // ai da sua api retorna um id
         const id = 12;
-        // setUserId(id);
+        setUserId(id);
         navigation.navigate('Home');
     }
+
+    useEffect(() => {
+        getUserId();
+    });
 
     return (
         <View style={styles.container}>
