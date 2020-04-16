@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, AsyncStorage, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    const navigation = useNavigation();
+
+    async function setUserId(id) {
+        try {
+            await AsyncStorage.setItem('@MySuperStore:key', `${id}`);
+        } catch (error) {
+            console.log('Deu bosta na hora de salvar, aconteceu isso: ' + error);
+        }
+    }
+
+    async function loginUser() {
+        // aqui vai seu codigo de verificação da api
+        // ai da sua api retorna um id
+        const id = 12;
+        // setUserId(id);
+        navigation.navigate('Home');
+    }
 
     return (
         <View style={styles.container}>
@@ -21,7 +40,10 @@ export default function Login() {
                 value={senha}
                 onChangeText={setSenha}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                onPress={loginUser}
+                style={styles.button}
+            >
                 <Text style={styles.textButton}>Login</Text>
             </TouchableOpacity>
         </View>
